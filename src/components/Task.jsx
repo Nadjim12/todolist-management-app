@@ -6,7 +6,6 @@ const Task = () => {
   const [completedCount, setCompletedCount] = useState(0);
 
   useEffect(() => {
-    //here should be your 
     const URL_API = "http://localhost:3000/todos"
     fetch(URL _API)
     .then(response => response.json())
