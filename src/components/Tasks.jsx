@@ -2,22 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 const Tasks = () => {
   const [taskLists, setTaskLists] = useState([]);
-console.log(taskLists)
-  const handleSearchTasksClick = () => {
-    console.log("Search tasks bar clicked");
-  };
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const handleAddTaskClick = () => {
-    console.log("Add task bar clicked");
-  };
-
-  const handleTaskListClick = () => {
-    console.log("Task list bar clicked");
-  };
-
-  const handleCompletedTasksClick = () => {
-    console.log("Completed tasks bar clicked");
-  };
+  console.log(taskLists); 
 
   useEffect(() => {
     fetch('https://wild-rose-walrus-suit.cyclic.app/todos')
@@ -36,6 +23,7 @@ console.log(taskLists)
     .then(response => response.json())
     .then(data => {
       setTaskLists(oldTaskLists => [...oldTaskLists, data]);
+      console.log('Task added:', data); // Log the added task
     })
     .catch(error => console.error('There was an error!', error));
   };
@@ -46,28 +34,27 @@ console.log(taskLists)
     })
     .then(() => {
       setTaskLists(taskLists.filter(task => task.id !== taskId));
+      console.log('Task deleted:', taskId); // Log the ID of the deleted task
     })
     .catch(error => console.error('There was an error!', error));
   };
 
   return (
     <div>
-      <div id="sarchTasksBar" onClick={handleSearchTasksClick}>Search tasks</div>
-      <div id="addTaskBar" onClick={handleAddTaskClick}>Add a new task</div>
-      <div id="taskListBar" onClick={handleTaskListClick}>Tasks (0)</div>
-      <div id="completedTasksBar" onClick={handleCompletedTasksClick}>Completed Tasks (0 of 0)</div>
+      <input type="text" placeholder="Search tasks" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+      <button onClick={handleAddTaskList}>Add a new task</button>
 
       <h1>Task List</h1>
-      {taskLists && taskLists.map(task => (
+      {taskLists && taskLists.filter(task => task.title.includes(searchTerm)).map(task => (
         <div key={task.id}>
           <h2>{task.title}</h2>
           <p>{task.description}</p>
           <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
         </div>
       ))}
-      <button onClick={handleAddTaskList}>Add Task</button>
     </div>
   );
 };
 
 export default Tasks;
+
