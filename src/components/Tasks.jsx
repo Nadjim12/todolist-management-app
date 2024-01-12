@@ -23,7 +23,7 @@ const Tasks = () => {
     .then(response => response.json())
     .then(data => {
       setTaskLists(oldTaskLists => [...oldTaskLists, data]);
-      console.log('Task added:', data); // Log the added task
+      console.log('Task added:', data);
     })
     .catch(error => console.error('There was an error!', error));
   };
@@ -34,7 +34,7 @@ const Tasks = () => {
     })
     .then(() => {
       setTaskLists(taskLists.filter(task => task.id !== taskId));
-      console.log('Task deleted:', taskId); // Log the ID of the deleted task
+      console.log('Task deleted:', taskId);
     })
     .catch(error => console.error('There was an error!', error));
   };
