@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import Tasks from './Tasks'; 
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  
+
   const addTask = (task) => {
     setTasks([...tasks, task]);
   };
@@ -44,8 +44,10 @@ function App() {
           </div>
         ))}
       </div>
+
+      <Tasks />
     </div>
   );
 }
 
-export default App; 
+export default App;
