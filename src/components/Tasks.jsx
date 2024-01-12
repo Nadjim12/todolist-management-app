@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Tasks = () => {
   const [taskLists, setTaskLists] = useState([]);
-
+console.log(taskLists)
   const handleSearchTasksClick = () => {
     console.log("Search tasks bar clicked");
   };
@@ -20,7 +20,7 @@ const Tasks = () => {
   };
 
   useEffect(() => {
-    fetch('https://todolist-management-app.free.mockoapp.net/todos')
+    fetch('https://wild-rose-walrus-suit.cyclic.app/todos')
       .then(response => response.json())
       .then(data => setTaskLists(data))
       .catch(error => console.error('There was an error!', error));
@@ -28,7 +28,7 @@ const Tasks = () => {
 
   const handleAddTaskList = () => {
     const newTask = {};
-    fetch('https://todolist-management-app.free.mockoapp.net/todos', {
+    fetch('https://wild-rose-walrus-suit.cyclic.app/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newTask)
@@ -41,7 +41,7 @@ const Tasks = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    fetch(`https://todolist-management-app.free.mockoapp.net/todos/${taskId}`, {
+    fetch(`https://wild-rose-walrus-suit.cyclic.app/todos/${taskId}`, {
       method: 'DELETE',
     })
     .then(() => {
@@ -58,7 +58,7 @@ const Tasks = () => {
       <div id="completedTasksBar" onClick={handleCompletedTasksClick}>Completed Tasks (0 of 0)</div>
 
       <h1>Task List</h1>
-      {taskLists.map(task => (
+      {taskLists && taskLists.map(task => (
         <div key={task.id}>
           <h2>{task.title}</h2>
           <p>{task.description}</p>
